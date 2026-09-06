@@ -65,6 +65,17 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- Some JVMs resolve the host's default timezone to a deprecated
+					     IANA alias (e.g. Asia/Calcutta) that the Postgres Testcontainer
+					     rejects during connection setup. Forcing UTC keeps test runs
+					     reproducible across machines. -->
+					<argLine>-Duser.timezone=UTC</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
